@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: bmtc_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: bmtc_tracker
+      MYSQL_USER: bmtc_user
+      MYSQL_PASSWORD: bmtc_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bmtc_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: bmtc_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - bmtc_network
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bmtc_backend
+    environment:
+      - DATABASE_URL=mysql+pymysql://bmtc_user:bmtc_password@mysql:3306/bmtc_tracker
+      - REDIS_URL=redis://redis:6379/0
+      - DEMO_MODE=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - bmtc_network
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Frontend (for production builds)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: bmtc_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    networks:
+      - bmtc_network
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  bmtc_network:
+    driver: bridge

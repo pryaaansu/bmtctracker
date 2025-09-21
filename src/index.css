@@ -1,0 +1,467 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@300;400;500;600;700&display=swap');
+
+/* Leaflet CSS */
+@import 'leaflet/dist/leaflet.css';
+
+/* Base styles */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+  
+  /* Kannada text styling */
+  .text-kannada {
+    font-family: 'Noto Sans Kannada', sans-serif;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+}
+
+/* Component styles */
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-soft border border-gray-200 dark:border-gray-700 transition-colors duration-300;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200;
+  }
+}
+
+/* Utility styles */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animate-pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.4);
+      opacity: 0;
+    }
+  }
+}
+
+/* Leaflet marker fixes */
+.leaflet-container {
+  @apply h-full w-full;
+}
+
+.leaflet-marker-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Marker cluster styles */
+.custom-cluster-icon {
+  background: transparent;
+  border: none;
+}
+
+.cluster-small {
+  @apply bg-primary-500 text-white rounded-full flex items-center justify-center w-10 h-10 text-sm font-semibold shadow-lg;
+}
+
+.cluster-medium {
+  @apply bg-primary-600 text-white rounded-full flex items-center justify-center w-12 h-12 text-base font-semibold shadow-lg;
+}
+
+.cluster-large {
+  @apply bg-primary-700 text-white rounded-full flex items-center justify-center w-14 h-14 text-lg font-semibold shadow-lg;
+}
+
+.cluster-small:hover,
+.cluster-medium:hover,
+.cluster-large:hover {
+  @apply transform scale-110 transition-transform duration-200;
+}
+
+/* Animation classes for Framer Motion */
+.page-transition {
+  @apply w-full h-full;
+}
+
+/* Accessibility styles */
+@layer utilities {
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* Skip to content link */
+  .skip-link {
+    @apply absolute top-0 left-0 bg-primary-600 text-white px-4 py-2 rounded-br-lg z-50 transform -translate-y-full focus:translate-y-0 transition-transform duration-200;
+  }
+}
+
+/* High contrast mode */
+.high-contrast {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+}
+
+.high-contrast * {
+  @apply !border-black dark:!border-white;
+}
+
+.high-contrast .bg-white {
+  @apply !bg-white !text-black;
+}
+
+.high-contrast .bg-gray-100,
+.high-contrast .bg-gray-200,
+.high-contrast .bg-gray-300 {
+  @apply !bg-gray-200 !text-black;
+}
+
+.high-contrast .bg-gray-800,
+.high-contrast .bg-gray-700,
+.high-contrast .bg-gray-600 {
+  @apply !bg-black !text-white;
+}
+
+.high-contrast .text-gray-500,
+.high-contrast .text-gray-600,
+.high-contrast .text-gray-400 {
+  @apply !text-black dark:!text-white;
+}
+
+.high-contrast button,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  @apply !border-2 !border-black dark:!border-white;
+}
+
+.high-contrast .btn-primary {
+  @apply !bg-black !text-white !border-black;
+}
+
+.high-contrast .btn-secondary {
+  @apply !bg-white !text-black !border-black;
+}
+
+/* Font size variations */
+.font-small {
+  font-size: 14px;
+}
+
+.font-medium {
+  font-size: 16px;
+}
+
+.font-large {
+  font-size: 18px;
+}
+
+.font-extra-large {
+  font-size: 20px;
+}
+
+.font-small .text-xs { font-size: 10px; }
+.font-small .text-sm { font-size: 12px; }
+.font-small .text-base { font-size: 14px; }
+.font-small .text-lg { font-size: 16px; }
+.font-small .text-xl { font-size: 18px; }
+
+.font-large .text-xs { font-size: 14px; }
+.font-large .text-sm { font-size: 16px; }
+.font-large .text-base { font-size: 18px; }
+.font-large .text-lg { font-size: 20px; }
+.font-large .text-xl { font-size: 22px; }
+
+.font-extra-large .text-xs { font-size: 16px; }
+.font-extra-large .text-sm { font-size: 18px; }
+.font-extra-large .text-base { font-size: 20px; }
+.font-extra-large .text-lg { font-size: 22px; }
+.font-extra-large .text-xl { font-size: 24px; }
+
+/* Reduced motion */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Focus visible styles */
+.focus-visible *:focus-visible {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+}
+
+.focus-visible button:focus-visible,
+.focus-visible input:focus-visible,
+.focus-visible select:focus-visible,
+.focus-visible textarea:focus-visible,
+.focus-visible [tabindex]:focus-visible {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+}
+
+/* Keyboard navigation indicators */
+.keyboard-navigation button:focus,
+.keyboard-navigation input:focus,
+.keyboard-navigation select:focus,
+.keyboard-navigation textarea:focus,
+.keyboard-navigation [tabindex]:focus {
+  @apply outline-2 outline-primary-500 outline-offset-2;
+}
+
+/* High contrast focus indicators */
+.high-contrast.focus-visible *:focus-visible {
+  @apply ring-black dark:ring-white ring-4;
+}
+
+/* Accessible color combinations */
+.accessible-text {
+  @apply text-gray-900 dark:text-gray-100;
+}
+
+.accessible-bg {
+  @apply bg-white dark:bg-gray-900;
+}
+
+.accessible-border {
+  @apply border-gray-300 dark:border-gray-600;
+}
+
+/* Bus Marker Styles */
+.custom-bus-marker {
+  background: transparent;
+  border: none;
+}
+
+.bus-marker-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bus-marker {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.bus-marker:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.bus-marker.selected {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+  z-index: 10;
+}
+
+.bus-marker.moving {
+  animation: bus-move 2s ease-in-out infinite;
+}
+
+.bus-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bus-number {
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #374151;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1px 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.speed-indicator {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: #10B981;
+  border-radius: 50%;
+  border: 2px solid white;
+  animation: speed-pulse 1.5s ease-in-out infinite;
+}
+
+/* Pulsing effect for moving buses */
+.bus-marker-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.3);
+  animation: bus-pulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+.custom-bus-marker.pulsing .bus-marker-pulse {
+  animation: bus-pulse 2s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes bus-move {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes bus-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes speed-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+/* Route polyline animations */
+.route-animation-trail {
+  animation: route-trail 2s ease-in-out infinite;
+}
+
+@keyframes route-trail {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 20;
+  }
+}
+
+.route-highlight {
+  animation: route-highlight 2s ease-in-out infinite;
+}
+
+@keyframes route-highlight {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Bus popup styles */
+.bus-popup .leaflet-popup-content-wrapper {
+  @apply rounded-lg shadow-lg border-0;
+}
+
+.bus-popup .leaflet-popup-content {
+  @apply p-0 m-0;
+}
+
+.bus-popup-content {
+  @apply p-4 min-w-64;
+}
+
+/* Map legend styles */
+.map-legend {
+  @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg p-3 text-xs;
+}
+
+.map-legend-item {
+  @apply flex items-center space-x-2;
+}
+
+.map-legend-color {
+  @apply w-3 h-3 rounded-full;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .bus-marker {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .bus-number {
+    font-size: 9px;
+  }
+  
+  .bus-popup-content {
+    @apply min-w-56;
+  }
+}
